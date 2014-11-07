@@ -87,7 +87,9 @@ app.use(function(req, res, next){
 });
 
 app.get('/', routes.index);
-app.get('/users', routes.users);
+app.get('/student', routes.student);
+app.get('/ta', routes.ta);
+app.get('/proff', routes.proff);
 app.post("/login", routes.login);
 app.post("/logout", routes.logout);
 
