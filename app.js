@@ -92,6 +92,7 @@ app.get('/ta', routes.ta);
 app.get('/proff', routes.proff);
 app.post("/login", routes.login);
 app.post("/logout", routes.logout);
+app.post("/update", routes.update);
 
 
 //serve static files from public directory.

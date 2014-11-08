@@ -13,6 +13,8 @@ userPerm["student2"] = 3;
 userPerm["ta1"] = 2;
 userPerm["proff1"] = 1;
 
+var deadlines = {};
+
 function index(req, res) {
     if (req.session.username) {
         res.redirect("/users");
@@ -96,9 +98,28 @@ function logout(req, res) {
     res.redirect("/");
 }
 
+function update(req, res) {
+	var as = req.body.as;
+	var date = new Date(req.body.date);
+	var id = req.body.id;
+	
+	if(id === 'ta') {
+		if(date.compare(deadlines[as], date) === 1)
+		{
+			//Assignemnt on time
+		} else
+		{
+			//Not on time
+		}
+	} else if(id === 'proff') {
+		deadlines[as] = date;
+	}
+}
+
 exports.index = index;
 exports.student = student;
 exports.ta = ta;
 exports.proff = proff;
 exports.login = login;
 exports.logout = logout;
+exports.update = update;
