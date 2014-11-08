@@ -1,18 +1,22 @@
 $(document).ready(function () {
 
-	var permission = getCookie('permission');
 	var startCol = $('.start');
 	var deadCol = $('.dead');
 	var doneCol = $('.done');
 
-	document.getElementById('Logout').onclick = function() {
-  		document.cookie = 'permission' +'=; Path=/; Expires=Thu, 01 Jan 1970 00:00:01 GMT;';
-	};
+	document.getElementById('Logout').addEventListener("click", function() {
+		document.cookie = 'permission' +'=; Path=/; Expires=Thu, 01 Jan 1970 00:00:01 GMT;';
+	});
 
-	function getCookie(name) {
-		var value = "; " + document.cookie;
-		var parts = value.split("; " + name + "=");
-		if(parts.length == 2) return parts.pop().split(";").shift();
+	function getCookie(cname) {
+	    var name = cname + "=";
+	    var ca = document.cookie.split(';');
+	    for(var i=0; i<ca.length; i++) {
+	        var c = ca[i];
+	        while (c.charAt(0)==' ') c = c.substring(1);
+	        if (c.indexOf(name) != -1) return c.substring(name.length, c.length);
+	    }
+	    return "";
 	}
 
 	function pageForStudent() {
@@ -38,23 +42,29 @@ $(document).ready(function () {
 		selector.removeAttr('disabled'); 
 	}
 
-	if(permission != undefined && permission != null && permission != 0) {
-		switch(permission) {
-			case 1:
-				pageForProf();
-				break;
-			case 2: 
-				pageForTA();
-				break;
-			case 3: 
-				pageForStudent();
-				break;
-			default:
-				console.log("Error invalid permission in cookie");
-				break;
+	function permissionCheck() {
+		var permission = getCookie('permission');
+		console.log("Permission is: " + permission);
+		if(permission != undefined && permission != null && permission != 0) {
+			switch(permission) {
+				case 1:
+					pageForProf();
+					break;
+				case 2: 
+					pageForTA();
+					break;
+				case 3: 
+					pageForStudent();
+					break;
+				default:
+					console.log("Error invalid permission in cookie");
+					break;
+			}
+		} else {
+			console.log("Error permission in cookie couldn't be found");
 		}
-	} else {
-		console.log("Error permission in cookie couldn't be found");
 	}
+	
+	permissionCheck();
 
 });
