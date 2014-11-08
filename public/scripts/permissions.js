@@ -1,9 +1,13 @@
-$(document).read(function () {
+$(document).ready(function () {
 
 	var permission = getCookie('permission');
 	var startCol = $('.start');
 	var deadCol = $('.dead');
 	var doneCol = $('.done');
+
+	document.getElementById('Logout').onclick = function() {
+  		document.cookie = 'permission' +'=; Path=/; Expires=Thu, 01 Jan 1970 00:00:01 GMT;';
+	};
 
 	function getCookie(name) {
 		var value = "; " + document.cookie;
@@ -46,11 +50,11 @@ $(document).read(function () {
 				pageForStudent();
 				break;
 			default:
-				Console.log("Error invalid permission in cookie");
+				console.log("Error invalid permission in cookie");
 				break;
 		}
 	} else {
-		Console.log("Error permission in cookie couldn't be found");
+		console.log("Error permission in cookie couldn't be found");
 	}
 
 });
