@@ -70,7 +70,7 @@ function login(req, res) {
 	
 	if(userDB[username] && userDB[username] === password) {
 	    req.session.username = username;
-		req.session.password = password;
+		req.session.permission = userPerm[username];
 	    loggedInUsers[username] = LoggedIn;
 		if(userPerm[username] === 3) {
 	    	res.redirect("/student");
