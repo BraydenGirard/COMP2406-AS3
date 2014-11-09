@@ -110,6 +110,10 @@ function login(req, res) {
 		req.session.permission = userPerm[username];
 	    loggedInUsers[username] = LoggedIn;
 
+<<<<<<< HEAD
+=======
+		res.cookie("permission", userPerm[username].toString(), {maxAge: 60*60*1000, httpOnly: true, path: '/'});
+>>>>>>> 68ce45942f37208edd797e9b20c49b938a63b0c3
 		if(userPerm[username] === 3) {
 	    	res.redirect('/student');
 		} else if(userPerm[username] === 2) {

@@ -1,0 +1,182 @@
+extends tablelayout
+
+block content
+  h1 #{username}'s Account
+  p Welcome #{username}
+  form(action="/logout", method="post")
+        button(id="Logout", type="submit") Logout
+  table(width='928', border='1', cellpadding='5')
+    tbody
+        tr
+          th(width='45', scope='col')  
+          th(width='208', scope='col') TA
+          th(width='142', scope='col') Start Date
+          th(width='128', scope='col') Deadline
+          th(width='162', scope='col')
+            p
+              | Completion
+              br
+              | Date
+          th(width='155', scope='col') Comment
+        tr
+          th(scope='row') A1
+          td
+            span.auto-style21(style='font-weight: bold;') Chris
+          td #{as1start}
+          td #{as1dead}
+          td #{as1chris}
+          td.green ON TIME
+        tr
+          th(scope='row')  
+          td
+            span(style='font-weight: bold;') Lucas
+          td #{as1start}
+          td #{as1dead}
+          td #{as1lucas}
+          td.green ON TIME
+        tr
+          th(scope='row')  
+          td
+            span(style='font-weight: bold;') Muhammad
+          td #{as1start}
+          td #{as1dead}
+          td #{as1muhammad}
+          td.green ON TIME
+        tr
+          th(scope='row')  
+          td
+            span(style='font-weight: bold;') Lee
+          td #{as1start}
+          td #{as1dead}
+          td #{as1lee}
+          td.green ON TIME
+        tr
+          th(bgcolor='#CCCCCC', scope='row')  
+          td(bgcolor='#CCCCCC')  
+          td(bgcolor='#CCCCCC')  
+          td(bgcolor='#CCCCCC')  
+          td(bgcolor='#CCCCCC')  
+          td(bgcolor='#CCCCCC')  
+        tr
+          th(scope='row') A2
+          td
+            span.auto-style21(style='font-weight: bold;') Chris
+          td #{as2start}
+          td #{as2dead}
+          td #{as2chris}
+          td.green ON TIME
+        tr
+          th(scope='row')  
+          td
+            span(style='font-weight: bold;') Lucas
+          td #{as2start}
+          td #{as2dead}
+          td #{as2lucas}
+          td.green ON TIME
+        tr
+          th(scope='row')  
+          td
+            span(style='font-weight: bold;') Muhammad
+          td #{as2start}
+          td #{as2dead}
+          td #{as2muhammad}
+          td.green ON TIME
+        tr
+          th(scope='row')  
+          td
+            span(style='font-weight: bold;') Lee
+          td #{as2start}
+          td #{as2dead}
+          td #{as2lee}
+          td.green ON TIME
+        tr
+          th(bgcolor='#CCCCCC', scope='row')  
+          td(bgcolor='#CCCCCC')  
+          td(bgcolor='#CCCCCC')  
+          td(bgcolor='#CCCCCC')  
+          td(bgcolor='#CCCCCC')  
+          td(bgcolor='#CCCCCC')  
+        tr
+          th(scope='row') A3
+          td
+            span(style='font-weight: bold;') Chris
+          td #{as3start}
+          td #{as3dead}
+          td #{as3chris}
+          td.green  
+        tr
+          th(scope='row')  
+          td
+            span(style='font-weight: bold;') Lucas
+          td #{as3start}
+          td #{as3dead}
+          td #{as3lucas}
+          td.green 
+        tr
+          th(scope='row')  
+          td
+            span(style='font-weight: bold;') Muhammad
+          td #{as3start}
+          td #{as3dead}
+          td #{as3muhammad}
+          td.green  
+        tr
+          th(scope='row')  
+          td
+            span(style='font-weight: bold;') Lee
+          td #{as3start}
+          td #{as3dead}
+          td #{as3lee}
+          td.green  
+        tr
+          th(bgcolor='#CCCCCC', scope='row')  
+          td(bgcolor='#CCCCCC')  
+          td(bgcolor='#CCCCCC')  
+          td(bgcolor='#CCCCCC')  
+          td(bgcolor='#CCCCCC')  
+          td(bgcolor='#CCCCCC')  
+        tr
+          th(scope='row') A4
+          td
+            span.auto-style21(style='font-weight: bold;') Chris
+          td #{as4start}
+          td #{as4dead}
+          td #{as4chris}
+          td.green  
+        tr
+          th(scope='row')  
+          td
+            span(style='font-weight: bold;') Lucas
+          td #{as4start}
+          td #{as4dead}
+          td #{as4lucas}
+          td.green  
+        tr
+          th(scope='row')  
+          td
+            span(style='font-weight: bold;') Muhammad
+          td #{as4start}
+          td #{as4dead}
+          td #{as4muhammad}
+          td.green 
+        tr
+          th(scope='row')  
+          td
+            span(style='font-weight: bold;') Lee
+          td #{as4start}
+          td #{as4dead}
+          td #{as4lee}
+          td.green  
+        tr
+          th(bgcolor='#CCCCCC', scope='row')  
+          td(bgcolor='#CCCCCC')  
+          td(bgcolor='#CCCCCC')  
+          td(bgcolor='#CCCCCC')  
+          td(bgcolor='#CCCCCC')  
+          td(bgcolor='#CCCCCC')
+  h2 Users logged in
+  ul
+    each val, user in loggedInUsers
+      li= user
+
+
