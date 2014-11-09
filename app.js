@@ -89,12 +89,11 @@ app.use(function(req, res, next){
 app.get('/', routes.index);
 app.get('/student', routes.student);
 app.get('/ta', routes.ta);
-app.get('/proff', routes.proff);
+app.get('/prof', routes.prof);
 app.post("/login", routes.login);
 app.post("/logout", routes.logout);
-app.post("/profupdate", routes.profupdate);
 app.post("/taupdate", routes.taupdate);
-
+app.post("/profupdate", routes.profupdate);
 
 //serve static files from public directory.
 app.use(express.static(path.join(__dirname, 'public')));

@@ -13,8 +13,11 @@ userDB['louis'] = 'louispass';
 var userPerm = {};
 userPerm['student1'] = 3;
 userPerm['student2'] = 3;
-userPerm['ta1'] = 2;
-userPerm['prof1'] = 1;
+userPerm['chris'] = 2;
+userPerm['lucas'] = 2;
+userPerm['muhammad'] = 2;
+userPerm['lee'] = 2;
+userPerm['louis'] = 1;
 
 var deadline = {};
 deadline['as1'] = '';
@@ -122,24 +125,25 @@ function prof(req, res) {
 function login(req, res) {
     var username = req.body.username;
 	var password = req.body.password;
-	
+	console.log(username);
+	console.log(userDB[username]);
+	console.log(password);
 	if(userDB[username] && userDB[username] === password) {
 	    req.session.username = username;
 		req.session.permission = userPerm[username];
 	    loggedInUsers[username] = LoggedIn;
-
+		console.log("Valid login!!!");
 		if(userPerm[username] === 3) {
 	    	res.redirect('/student');
 		} else if(userPerm[username] === 2) {
 			res.redirect('/ta');
+			console.log("TA login!!!");
 		} else if(userPerm[username] === 1) {
 			res.redirect('/prof');
 		}
-
 	} else {
 		res.redirect('/?error=Incorrect login');
 	}
-  
 }
 
 function logout(req, res) {
@@ -157,7 +161,7 @@ function taupdate(req, res) {
 	var username = req.session.username;
 	var date = new Date(req.body.date);
 	
-	if(date.compare(deadlines[as], date) === 1)
+	if(deadline[as] >= date)
 	{
 		//Assignemnt on time
 		completion[as + username] = 'ON TIME';
