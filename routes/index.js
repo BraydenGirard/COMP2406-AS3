@@ -49,6 +49,24 @@ completion['as2lee'] = '';
 completion['as3lee'] = '';
 completion['as4lee'] = '';
 
+var colour = {};
+colour['as1chris'] = 'black';
+colour['as2chris'] = 'black';
+colour['as3chris'] = 'black';
+colour['as4chris'] = 'black';
+colour['as1lucas'] = 'black';
+colour['as2lucas'] = 'black';
+colour['as3lucas'] = 'black';
+colour['as4lucas'] = 'black';
+colour['as1muhammad'] = 'black';
+colour['as2muhammad'] = 'black';
+colour['as3muhammad'] = 'black';
+colour['as4muhammad'] = 'black';
+colour['as1lee'] = 'black';
+colour['as2lee'] = 'black';
+colour['as3lee'] = 'black';
+colour['as4lee'] = 'black';
+
 function index(req, res) {
     if (req.session.username && req.session.permission === 1) {
         res.redirect('/prof');
@@ -88,7 +106,12 @@ function buildReturnObject(user, title, loggedInUsers) {
 	as3muhammad: completion['as3muhammad'], as4muhammad: completion['as4muhammad'], as1lee: completion['as1lee'], 
 	as2lee: completion['as2lee'], as3lee: completion['as3lee'], as4lee: completion['as4lee'], as1start: start['as1'], 
 	as2start: start['as2'], as3start: start['as3'], as4start: start['as4'], as1dead: deadline['as1'], 
-	as2dead: deadline['as2'], as3dead: deadline['as3'], as4dead: deadline['as4']};
+	as2dead: deadline['as2'], as3dead: deadline['as3'], as4dead: deadline['as4'], as1chrisstyle: colour['as1chris'], 
+	as2chrisstyle: colour['as2chris'], as3chrisstyle: colour['as3chris'], as4chrisstyle: colour['as4chris'], 
+	as1lucasstyle: colour['as1lucas'], as2lucasstyle: colour['as2lucas'], as3lucasstyle: colour['as3lucas'], 
+	as4lucasstyle: colour['as4lucas'], as1muhammadstyle: colour['as1muhammad'], as2muhammadstyle: colour['as2muhammad'], 
+	as3muhammadstyle: colour['as3muhammad'], as4muhammadstyle: colour['as4muhammad'], as1leestyle: colour['as1lee'], 
+	as2leestyle: colour['as2lee'], as3leestyle: colour['as3lee'], as4leestyle: colour['as4lee']};
 	return value;
 }
 
@@ -165,10 +188,12 @@ function taupdate(req, res) {
 	{
 		//Assignemnt on time
 		completion[as + username] = 'ON TIME';
+		colour[as + username] = 'green';
 	} else
 	{
 		//Not on time
 		completion[as + username] = 'LATE';
+		colour[as + username] = 'red';
 	}
 	
 	res.redirect('/ta');
