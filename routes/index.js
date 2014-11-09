@@ -14,7 +14,7 @@ var userPerm = {};
 userPerm['student1'] = 3;
 userPerm['student2'] = 3;
 userPerm['ta1'] = 2;
-userPerm['proff1'] = 1;
+userPerm['prof1'] = 1;
 
 var deadline = {};
 deadline['as1'] = '';
@@ -48,7 +48,7 @@ completion['as4lee'] = '';
 
 function index(req, res) {
     if (req.session.username && req.session.permission === 1) {
-        res.redirect('/proff');
+        res.redirect('/prof');
     } else if(req.session.username && req.session.permission === 2) {
     	res.redirect('/ta');
     } else if(req.session.username && req.session.permission === 3) {
@@ -62,9 +62,13 @@ function index(req, res) {
 function student(req, res) {
     if (req.session.username) {
 		if(userPerm[req.session.username] === 3) {
-			res.render('student.jade', {username:req.session.username,
+			/*res.render('student.jade', {username:req.session.username,
 				   	 					title:'Account',
-				    					loggedInUsers: loggedInUsers});
+				    					loggedInUsers: loggedInUsers,
+				    					completion: completion,
+				    					start: start,
+				    					deadline: deadline});*/
+			res.render('student.jade', buildReturnObject(req.session.username, 'Account', loggedInUsers));
 		} else {
 			res.redirect('/?error=Improper Permission');
 		}
@@ -73,12 +77,25 @@ function student(req, res) {
     }
 };
 
+function buildReturnObject(user, title, loggedInUsers) {
+	var value = {username: user, title: title, loggedInUsers: loggedInUsers, as1chris: completion['as1chris'], 
+	as2chris: completion['as2chris'], as3chris: completion['as3chris'], as4chris: completion['as4chris'], 
+	as1lucas: completion['as1lucas'], as2lucas: completion['as2lucas'], as3lucas: completion['as3lucas'], 
+	as4lucas: completion['as4lucas'], as1muhammad: completion['as1muhammad'], as2muhammad: completion['as2muhammad'], 
+	as3muhammad: completion['as3muhammad'], as4muhammad: completion['as4muhammad'], as1lee: completion['as1lee'], 
+	as2lee: completion['as2lee'], as3lee: completion['as3lee'], as4lee: completion['as4lee'], as1start: start['as1'], 
+	as2start: start['as2'], as3start: start['as3'], as4start: start['as4'], as1dead: deadline['as1'], 
+	as2dead: deadline['as2'], as3dead: deadline['as3'], as4dead: deadline['as4']};
+	return value;
+}
+
 function ta(req, res) {
     if (req.session.username) {
 		if(userPerm[req.session.username] === 2) {
-			res.render('ta.jade', {username:req.session.username,
+			/*res.render('ta.jade', {username:req.session.username,
 				   	 					title:'Account',
-				    					loggedInUsers: loggedInUsers});
+				    					loggedInUsers: loggedInUsers});*/
+			res.render('ta.jade', buildReturnObject(req.session.username, 'Account', loggedInUsers));
 		} else {
 			res.redirect('/ta/?error=Improper Permission');
 		}
@@ -87,12 +104,13 @@ function ta(req, res) {
     }
 };
 
-function proff(req, res) {
+function prof(req, res) {
     if (req.session.username) {
 		if(userPerm[req.session.username] === 1) {
-			res.render('proff.jade', {username:req.session.username,
+			/*res.render('prof.jade', {username:req.session.username,
 				   	 					title:'Account',
-				    					loggedInUsers: loggedInUsers});
+				    					loggedInUsers: loggedInUsers});*/
+			res.render('prof.jade', buildReturnObject(req.session.username, 'Account', loggedInUsers));
 		} else {
 			res.redirect('/?error=Improper Permission');
 		}
@@ -110,16 +128,12 @@ function login(req, res) {
 		req.session.permission = userPerm[username];
 	    loggedInUsers[username] = LoggedIn;
 
-<<<<<<< HEAD
-=======
-		res.cookie("permission", userPerm[username].toString(), {maxAge: 60*60*1000, httpOnly: true, path: '/'});
->>>>>>> 68ce45942f37208edd797e9b20c49b938a63b0c3
 		if(userPerm[username] === 3) {
 	    	res.redirect('/student');
 		} else if(userPerm[username] === 2) {
 			res.redirect('/ta');
 		} else if(userPerm[username] === 1) {
-			res.redirect('/proff');
+			res.redirect('/prof');
 		}
 
 	} else {
@@ -156,7 +170,7 @@ function taupdate(req, res) {
 	res.redirect('/ta');
 }
 
-function proffupdate(req, res) {
+function profupdate(req, res) {
 	var as = req.body.as;
 	var username = req.session.username;
 	var dateStart = new Date(req.body.dateStart);
@@ -165,7 +179,8 @@ function proffupdate(req, res) {
 	start[as] = dateStart;
 	deadline[as] = dateEnd;
 	
-	for each (var user in userDB)
+	//for each (var user in userDB)
+	for (var user in userDB)
 	{
 		if(userPerm[user] === 2)
 		{
@@ -174,14 +189,15 @@ function proffupdate(req, res) {
 		}
 	}
 	
-	res.redirect('/proff');
+	res.redirect('/prof');
 }
+
 
 exports.index = index;
 exports.student = student;
 exports.ta = ta;
-exports.proff = proff;
+exports.prof = prof;
 exports.login = login;
 exports.logout = logout;
 exports.taupdate = taupdate;
-exports.proffupdate = proffupdate;
+exports.profupdate = profupdate;

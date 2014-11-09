@@ -17,9 +17,9 @@
 10 error You can get their info via:
 10 error     npm owner ls application-name
 10 error There is likely additional logging output above.
-11 error System Darwin 14.0.0
+11 error System Darwin 13.4.0
 12 error command "node" "/usr/local/bin/npm" "start"
-13 error cwd /Users/braydengirard/Development/COMP2406A/COMP2406-AS3
+13 error cwd /Users/bensweett/Dropbox/Carleton/Year 4.1/COMP 2406/Assignments/A3/COMP2406-AS3
 14 error node -v v0.10.31
 15 error npm -v 1.4.23
 16 error code ELIFECYCLE
