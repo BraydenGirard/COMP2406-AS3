@@ -31,6 +31,24 @@ start['as2'] = '';
 start['as3'] = '';
 start['as4'] = '';
 
+var currStatus = {};
+currStatus['as1chris'] = '';
+currStatus['as2chris'] = '';
+currStatus['as3chris'] = '';
+currStatus['as4chris'] = '';
+currStatus['as1lucas'] = '';
+currStatus['as2lucas'] = '';
+currStatus['as3lucas'] = '';
+currStatus['as4lucas'] = '';
+currStatus['as1muhammad'] = '';
+currStatus['as2muhammad'] = '';
+currStatus['as3muhammad'] = '';
+currStatus['as4muhammad'] = '';
+currStatus['as1lee'] = '';
+currStatus['as2lee'] = '';
+currStatus['as3lee'] = '';
+currStatus['as4lee'] = '';
+
 var completion = {};
 completion['as1chris'] = '';
 completion['as2chris'] = '';
@@ -86,7 +104,7 @@ function student(req, res) {
 			/*res.render('student.jade', {username:req.session.username,
 				   	 					title:'Account',
 				    					loggedInUsers: loggedInUsers,
-				    					completion: completion,
+				    					currStatus: currStatus,
 				    					start: start,
 				    					deadline: deadline});*/
 			res.render('student.jade', buildReturnObject(req.session.username, 'Account', loggedInUsers));
@@ -99,19 +117,24 @@ function student(req, res) {
 };
 
 function buildReturnObject(user, title, loggedInUsers) {
-	var value = {username: user, title: title, loggedInUsers: loggedInUsers, as1chris: completion['as1chris'], 
-	as2chris: completion['as2chris'], as3chris: completion['as3chris'], as4chris: completion['as4chris'], 
-	as1lucas: completion['as1lucas'], as2lucas: completion['as2lucas'], as3lucas: completion['as3lucas'], 
-	as4lucas: completion['as4lucas'], as1muhammad: completion['as1muhammad'], as2muhammad: completion['as2muhammad'], 
-	as3muhammad: completion['as3muhammad'], as4muhammad: completion['as4muhammad'], as1lee: completion['as1lee'], 
-	as2lee: completion['as2lee'], as3lee: completion['as3lee'], as4lee: completion['as4lee'], as1start: start['as1'], 
+	var value = {username: user, title: title, loggedInUsers: loggedInUsers, as1chrisstatus: currStatus['as1chris'], 
+	as2chrisstatus: currStatus['as2chris'], as3chrisstatus: currStatus['as3chris'], as4chrisstatus: currStatus['as4chris'], 
+	as1lucasstatus: currStatus['as1lucas'], as2lucasstatus: currStatus['as2lucas'], as3lucasstatus: currStatus['as3lucas'], 
+	as4lucasstatus: currStatus['as4lucas'], as1muhammadstatus: currStatus['as1muhammad'], as2muhammadstatus: currStatus['as2muhammad'], 
+	as3muhammadstatus: currStatus['as3muhammad'], as4muhammadstatus: currStatus['as4muhammad'], as1leestatus: currStatus['as1lee'], 
+	as2leestatus: currStatus['as2lee'], as3leestatus: currStatus['as3lee'], as4leestatus: currStatus['as4lee'], as1start: start['as1'], 
 	as2start: start['as2'], as3start: start['as3'], as4start: start['as4'], as1dead: deadline['as1'], 
 	as2dead: deadline['as2'], as3dead: deadline['as3'], as4dead: deadline['as4'], as1chrisstyle: colour['as1chris'], 
 	as2chrisstyle: colour['as2chris'], as3chrisstyle: colour['as3chris'], as4chrisstyle: colour['as4chris'], 
 	as1lucasstyle: colour['as1lucas'], as2lucasstyle: colour['as2lucas'], as3lucasstyle: colour['as3lucas'], 
 	as4lucasstyle: colour['as4lucas'], as1muhammadstyle: colour['as1muhammad'], as2muhammadstyle: colour['as2muhammad'], 
 	as3muhammadstyle: colour['as3muhammad'], as4muhammadstyle: colour['as4muhammad'], as1leestyle: colour['as1lee'], 
-	as2leestyle: colour['as2lee'], as3leestyle: colour['as3lee'], as4leestyle: colour['as4lee']};
+	as2leestyle: colour['as2lee'], as3leestyle: colour['as3lee'], as4leestyle: colour['as4lee'], as1chris: completion['as1chris'], 
+	as2chris: completion['as2chris'], as3chris: completion['as3chris'], as4chris: completion['as4chris'], 
+	as1lucas: completion['as1lucas'], as2lucas: completion['as2lucas'], as3lucas: completion['as3lucas'], 
+	as4lucas: completion['as4lucas'], as1muhammad: completion['as1muhammad'], as2muhammad: completion['as2muhammad'], 
+	as3muhammad: completion['as3muhammad'], as4muhammad: completion['as4muhammad'], as1lee: completion['as1lee'], 
+	as2lee: completion['as2lee'], as3lee: completion['as3lee'], as4lee: completion['as4lee']};
 	return value;
 }
 
@@ -187,13 +210,15 @@ function taupdate(req, res) {
 	if(deadline[as] >= date)
 	{
 		//Assignemnt on time
-		completion[as + username] = 'ON TIME';
+		currStatus[as + username] = 'ON TIME';
 		colour[as + username] = 'green';
+		completion[as + username] = date;
 	} else
 	{
 		//Not on time
-		completion[as + username] = 'LATE';
+		currStatus[as + username] = 'LATE';
 		colour[as + username] = 'red';
+		completion[as + username] = date;
 	}
 	
 	res.redirect('/ta');
@@ -213,8 +238,8 @@ function profupdate(req, res) {
 	{
 		if(userPerm[user] === 2)
 		{
-			//They are a TA so add to completion
-			completion[as + user] = 'in progress';
+			//They are a TA so add to currStatus
+			currStatus[as + user] = 'in progress';
 		}
 	}
 	
