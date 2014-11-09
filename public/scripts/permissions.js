@@ -3,20 +3,42 @@ $(document).ready(function () {
 	var startCol = $('.start');
 	var deadCol = $('.dead');
 	var doneCol = $('.done');
+	var PATH = window.location.pathname;
+	var POST;
 
 	document.getElementById('Logout').addEventListener("click", function() {
-		document.cookie = 'permission' +'=; Path=/; Expires=Thu, 01 Jan 1970 00:00:01 GMT;';
+		//document.cookie = "permission" +'=; Path=/; Expires=Thu, 01 Jan 1970 00:00:01 GMT;';
 	});
 
-	function getCookie(cname) {
-	    var name = cname + "=";
-	    var ca = document.cookie.split(';');
-	    for(var i=0; i<ca.length; i++) {
-	        var c = ca[i];
-	        while (c.charAt(0)==' ') c = c.substring(1);
-	        if (c.indexOf(name) != -1) return c.substring(name.length, c.length);
-	    }
-	    return "";
+	/*
+	// posts new desired start and dead
+	function postTa(data) {
+		var xmlHttp = null;		
+		xmlHttp = new XMLHttpRequest();
+		xmlHttp.onreadystatechange=function() {
+			if (xmlHttp.readyState == 4 && xmlHttp.status == 200) {
+				desiredTemperature = xmlHttp.responseText;
+				tempLabel.innerHTML = desiredTemperature.toString() + "°C";
+			}
+		}
+		xmlHttp.open( "POST", POST_TEMP_URL, true );
+		xmlHttp.setRequestHeader('Content-Type', 'text/plain');
+		xmlHttp.send( data );
+	}
+	// TA
+	// as: #
+	// username: ""
+	// date: ""
+	
+	
+	// prof
+	// as: #
+	// username: ""
+	// dateStart: ""
+	// dateEnd: ""
+	
+	function postProf(data) {
+		
 	}
 
 	function pageForStudent() {
@@ -40,31 +62,5 @@ $(document).ready(function () {
 
 	function enableElementsInSelector(selector) {
 		selector.removeAttr('disabled'); 
-	}
-
-	function permissionCheck() {
-		var permission = getCookie('permission');
-		console.log("Permission is: " + permission);
-		if(permission != undefined && permission != null && permission != 0) {
-			switch(permission) {
-				case 1:
-					pageForProf();
-					break;
-				case 2: 
-					pageForTA();
-					break;
-				case 3: 
-					pageForStudent();
-					break;
-				default:
-					console.log("Error invalid permission in cookie");
-					break;
-			}
-		} else {
-			console.log("Error permission in cookie couldn't be found");
-		}
-	}
-	
-	permissionCheck();
-
+	}*/
 });
