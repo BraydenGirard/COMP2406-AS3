@@ -3,6 +3,8 @@ extends tablelayout
 block content
   h1 #{username}'s Account
   p Welcome #{username}
+  - if(error)
+    div.alert-error #{error}
   form(action="/logout", method="post")
         button(id="Logout", type="submit") Logout
   table(width='928', border='1', cellpadding='5')
@@ -175,8 +177,6 @@ block content
           td(bgcolor='#CCCCCC')  
           td(bgcolor='#CCCCCC')
   br
-  - if(error)
-    div.alert-error #{error}
   form(action="/taupdate" method="post")
     div
       label.add-on(for="date") Completion Date
