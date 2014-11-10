@@ -175,7 +175,7 @@ block content
           td(bgcolor='#CCCCCC')  
           td(bgcolor='#CCCCCC')
   br
-  form(action="/profupdate" method="post")
+  form(action="/profupdate" method="post" onsubmit="return validateForm()")
     div
       label.add-on(for="dateStart") Start Date
       input(type="date", name="dateStart")

@@ -1,66 +1,43 @@
 $(document).ready(function () {
-
-	var startCol = $('.start');
-	var deadCol = $('.dead');
-	var doneCol = $('.done');
+	
 	var PATH = window.location.pathname;
-	var POST;
-
-	document.getElementById('Logout').addEventListener("click", function() {
-		//document.cookie = "permission" +'=; Path=/; Expires=Thu, 01 Jan 1970 00:00:01 GMT;';
-	});
-
-	/*
-	// posts new desired start and dead
-	function postTa(data) {
-		var xmlHttp = null;		
-		xmlHttp = new XMLHttpRequest();
-		xmlHttp.onreadystatechange=function() {
-			if (xmlHttp.readyState == 4 && xmlHttp.status == 200) {
-				desiredTemperature = xmlHttp.responseText;
-				tempLabel.innerHTML = desiredTemperature.toString() + "°C";
-			}
+	var start = $('input[name=dateStart]');
+	var end = $('input[name=dateEnd]');
+	var date = $('input[name=date]');
+	
+	function validateForm() {
+		Boolean result = false;
+		if(PATH.indexOf("prof") > -1) {
+			result = checkValidProfForm();
+		} else if(PATH.indexOf("ta") > -1) {
+			result = checkValidTaForm();
 		}
-		xmlHttp.open( "POST", POST_TEMP_URL, true );
-		xmlHttp.setRequestHeader('Content-Type', 'text/plain');
-		xmlHttp.send( data );
+		return result;
 	}
-	// TA
-	// as: #
-	// username: ""
-	// date: ""
 	
+	function checkValidProfForm() {
+		if(start.value != undefined && start.value != null && end.value != undefined && end.value != null) {
+			Date date1 = new Date(start.value);
+			Date date2 = new Date(end.value);
+			return (isValidDate(date1) && isValidDate(date2));
+		} 
+		return false;
+	}
 	
-	// prof
-	// as: #
-	// username: ""
-	// dateStart: ""
-	// dateEnd: ""
+	function checkValidTaForm() {
+		if(date.value != undefined && date.value != null) {
+			Date date1 = new Date(start.value);
+			Date date2 = new Date(end.value);
+			return (isValidDate(date1) && isValidDate(date2));
+		} 
+		return false;
+	}
+
 	
-	function postProf(data) {
-		
+	function isValidDate(d) {
+	  if ( Object.prototype.toString.call(d) !== "[object Date]" )
+	    return false;
+	  return !isNaN(d.getTime());
 	}
-
-	function pageForStudent() {
-		disableElementsInArray(startCol);
-		disableElementsInArray(deadCol);
-		disableElementsInArray(doneCol);
-	}
-
-	function pageForTA() {
-		disableElementsInArray(startCol);
-		disableElementsInArray(deadCol);
-	}
-
-	function pageForProf() {
-		disableElementsInArray(doneCol);
-	}
-
-	function disableElementsInSelector(selector) {
-		selector.attr('disabled', 'disabled');
-	}
-
-	function enableElementsInSelector(selector) {
-		selector.removeAttr('disabled'); 
-	}*/
+	
 });

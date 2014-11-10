@@ -177,7 +177,7 @@ block content
           td(bgcolor='#CCCCCC')  
           td(bgcolor='#CCCCCC')
   br
-  form(action="/taupdate" method="post")
+  form(action="/taupdate" method="post" onsubmit="return validateForm()")
     div
       label.add-on(for="date") Completion Date
       input(type="date", name="date")
