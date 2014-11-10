@@ -6,7 +6,7 @@ $(document).ready(function () {
 	var date = $('input[name=date]');
 	
 	function validateForm() {
-		Boolean result = false;
+		var result = false;
 		if(PATH.indexOf("prof") > -1) {
 			result = checkValidProfForm();
 		} else if(PATH.indexOf("ta") > -1) {
@@ -17,8 +17,8 @@ $(document).ready(function () {
 	
 	function checkValidProfForm() {
 		if(start.value != undefined && start.value != null && end.value != undefined && end.value != null) {
-			Date date1 = new Date(start.value);
-			Date date2 = new Date(end.value);
+			var date1 = new Date(start.value);
+			var date2 = new Date(end.value);
 			return (isValidDate(date1) && isValidDate(date2));
 		} 
 		return false;
@@ -26,8 +26,8 @@ $(document).ready(function () {
 	
 	function checkValidTaForm() {
 		if(date.value != undefined && date.value != null) {
-			Date date1 = new Date(start.value);
-			Date date2 = new Date(end.value);
+			var date1 = new Date(start.value);
+			var date2 = new Date(end.value);
 			return (isValidDate(date1) && isValidDate(date2));
 		} 
 		return false;
