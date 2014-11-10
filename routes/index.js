@@ -101,7 +101,7 @@ function index(req, res) {
 function student(req, res) {
     if (req.session.username) {
 		if(userPerm[req.session.username] === 3) {
-			res.render('student.jade', buildReturnObject(req.session.username, 'Account', loggedInUsers));
+			res.render('student.jade', buildReturnObject(req.session.username, 'Account', loggedInUsers, req.query.error));
 		} else {
 			res.redirect('/');
 		}
@@ -110,7 +110,7 @@ function student(req, res) {
     }
 };
 
-function buildReturnObject(user, title, loggedInUsers) {
+function buildReturnObject(user, title, loggedInUsers, error) {
 	var value = {username: user, title: title, loggedInUsers: loggedInUsers, as1chrisstatus: currStatus['as1chris'], 
 	as2chrisstatus: currStatus['as2chris'], as3chrisstatus: currStatus['as3chris'], as4chrisstatus: currStatus['as4chris'], 
 	as1lucasstatus: currStatus['as1lucas'], as2lucasstatus: currStatus['as2lucas'], as3lucasstatus: currStatus['as3lucas'], 
@@ -128,7 +128,7 @@ function buildReturnObject(user, title, loggedInUsers) {
 	as1lucas: completion['as1lucas'], as2lucas: completion['as2lucas'], as3lucas: completion['as3lucas'], 
 	as4lucas: completion['as4lucas'], as1muhammad: completion['as1muhammad'], as2muhammad: completion['as2muhammad'], 
 	as3muhammad: completion['as3muhammad'], as4muhammad: completion['as4muhammad'], as1lee: completion['as1lee'], 
-	as2lee: completion['as2lee'], as3lee: completion['as3lee'], as4lee: completion['as4lee']};
+	as2lee: completion['as2lee'], as3lee: completion['as3lee'], as4lee: completion['as4lee'], error: error};
 	return value;
 }
 
@@ -138,7 +138,7 @@ function ta(req, res) {
 			/*res.render('ta.jade', {username:req.session.username,
 				   	 					title:'Account',
 				    					loggedInUsers: loggedInUsers});*/
-			res.render('ta.jade', buildReturnObject(req.session.username, 'Account', loggedInUsers));
+			res.render('ta.jade', buildReturnObject(req.session.username, 'Account', loggedInUsers, req.query.error));
 		} else {
 			res.redirect('/');
 		}
@@ -153,7 +153,7 @@ function prof(req, res) {
 			/*res.render('prof.jade', {username:req.session.username,
 				   	 					title:'Account',
 				    					loggedInUsers: loggedInUsers});*/
-			res.render('prof.jade', buildReturnObject(req.session.username, 'Account', loggedInUsers));
+			res.render('prof.jade', buildReturnObject(req.session.username, 'Account', loggedInUsers, req.query.error));
 		} else {
 			res.redirect('/');
 		}
