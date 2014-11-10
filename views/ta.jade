@@ -3,6 +3,8 @@ extends tablelayout
 block content
   h1 #{username}'s Account
   p Welcome #{username}
+  - if(error)
+    div.alert-error #{error}
   form(action="/logout", method="post")
         button(id="Logout", type="submit") Logout
   table(width='928', border='1', cellpadding='5')

@@ -101,15 +101,9 @@ function index(req, res) {
 function student(req, res) {
     if (req.session.username) {
 		if(userPerm[req.session.username] === 3) {
-			/*res.render('student.jade', {username:req.session.username,
-				   	 					title:'Account',
-				    					loggedInUsers: loggedInUsers,
-				    					currStatus: currStatus,
-				    					start: start,
-				    					deadline: deadline});*/
 			res.render('student.jade', buildReturnObject(req.session.username, 'Account', loggedInUsers));
 		} else {
-			res.redirect('/?error=Improper Permission');
+			res.redirect('/');
 		}
     } else {
 	res.redirect('/?error=Not Logged In');
@@ -146,7 +140,7 @@ function ta(req, res) {
 				    					loggedInUsers: loggedInUsers});*/
 			res.render('ta.jade', buildReturnObject(req.session.username, 'Account', loggedInUsers));
 		} else {
-			res.redirect('/ta/?error=Improper Permission');
+			res.redirect('/');
 		}
     } else {
 	res.redirect('/?error=Not Logged In');
@@ -161,7 +155,7 @@ function prof(req, res) {
 				    					loggedInUsers: loggedInUsers});*/
 			res.render('prof.jade', buildReturnObject(req.session.username, 'Account', loggedInUsers));
 		} else {
-			res.redirect('/?error=Improper Permission');
+			res.redirect('/');
 		}
     } else {
 	res.redirect('/?error=Not Logged In');
@@ -171,19 +165,15 @@ function prof(req, res) {
 function login(req, res) {
     var username = req.body.username;
 	var password = req.body.password;
-	console.log(username);
-	console.log(userDB[username]);
-	console.log(password);
+
 	if(userDB[username] && userDB[username] === password) {
 	    req.session.username = username;
 		req.session.permission = userPerm[username];
 	    loggedInUsers[username] = LoggedIn;
-		console.log("Valid login!!!");
 		if(userPerm[username] === 3) {
 	    	res.redirect('/student');
 		} else if(userPerm[username] === 2) {
 			res.redirect('/ta');
-			console.log("TA login!!!");
 		} else if(userPerm[username] === 1) {
 			res.redirect('/prof');
 		}
@@ -207,21 +197,21 @@ function taupdate(req, res) {
 	var username = req.session.username;
 	var date = new Date(req.body.date);
 	
-	if(deadline[as] >= date)
-	{
+	if(deadline[as] === '') {
+		res.redirect('/?error=Assignment does not exist!');
+	} else if(deadline[as] >= date) {
 		//Assignemnt on time
 		currStatus[as + username] = 'ON TIME';
 		colour[as + username] = 'green';
 		completion[as + username] = date;
-	} else
-	{
+		res.redirect('/ta');
+	} else {
 		//Not on time
 		currStatus[as + username] = 'LATE';
 		colour[as + username] = 'red';
 		completion[as + username] = date;
+		res.redirect('/ta');
 	}
-	
-	res.redirect('/ta');
 }
 
 function profupdate(req, res) {
@@ -234,15 +224,12 @@ function profupdate(req, res) {
 	deadline[as] = dateEnd;
 	
 	//for each (var user in userDB)
-	for (var user in userDB)
-	{
-		if(userPerm[user] === 2)
-		{
+	for (var user in userDB) {
+		if(userPerm[user] === 2) {
 			//They are a TA so add to currStatus
 			currStatus[as + user] = 'in progress';
 		}
 	}
-	
 	res.redirect('/prof');
 }
 
