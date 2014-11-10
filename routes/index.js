@@ -198,7 +198,7 @@ function taupdate(req, res) {
 	var date = new Date(req.body.date);
 	
 	if(deadline[as] === '') {
-		res.redirect('/?error=Assignment does not exist!');
+		res.redirect('/ta/?error=Assignment does not exist!');
 	} else if(deadline[as] >= date) {
 		//Assignemnt on time
 		currStatus[as + username] = 'ON TIME';
