@@ -10,29 +10,39 @@ We have built a server that manages the chart and allows the students, prof. and
 
 This assignment is based on the form handling code in notes section 08 and the cookies and session code examples in notes section 10.
 
-* Source: [https://github.com/venom889/COMP2406-A2](https://github.com/BraydenGirard/COMP2406-AS3)
+* Source: [https://github.com/BraydenGirard/COMP2406-AS3](https://github.com/BraydenGirard/COMP2406-AS3)
 
 
 ## Quick start
 
-Please run the server applications in the following order:
+We tested our application in Chrome and FireFox on Mac OS X. To use the application:
 
-1. Run the Furnace app found in /node using "node FurnaceApp.js"
+1. Run the Node.js Express app using "npm start" from the command line
 
-2. Run the Web Server app found in /html-server using "node https_server.js"
+2. Open a browser and go to "http://localhost:3000/"
 
-3. Run the Thermostat app found in /node using "node ThermostatApp.js"
+3. To login using one of the following test accounts: 
+	**Level 1** 
+	  Username: louis    Password: louispass
+	**Level 2**
+	  Username: chris    Password: chrispass
+	  Username: lee      Password: leepass
+	  Username: muhammad Password: muhammadpass
+	  Username: lucas    Password: lucaspass
+	**Level 3**
+	  Username: student1 Password: student1pass
+	  Username: student2 Password: student2pass
+	
+4. Prof and TA accounts will have an extra form at the bottom of the page which is used for adding dates
+	**Once a TA has submitted a completion date the Profs account should not change the start and deadline dates**
 
-4. The web page will be visible at: https://localhost:3000/index.html
-
-NOTE: Apps must be run from thier directory in order to allow for 
-resource paths to be properly found
+5. Any user errors will be displayed near the top of the page in red or in a JS alert popup.
 
 
 ## Features
 
 * Cross-browser compatible (Chrome, Safari, Firefox 3.6+).
-* Uses [Node.js Express](http://expressjs.com/)
+* Uses [Node.js Express](http://expressjs.com/) and [jQuery](http://jquery.com/)
 * Allows users to log in with thier predefined accounts
 * Users can preform specific actions based on thier account level:
 	* Level 1 - the prof can set an assignment start and deadline for grading date
@@ -46,25 +56,21 @@ resource paths to be properly found
 
 The following issues are known problems with our implementation:
 
-1. Due to self-signed certificates HTTPS will not work properly with our application
+1. Prof accounts are allowed to change the start and deadline date after an assignment has been graded by a TA
 
-We have provided 2 verisons of our source one with HTTP and one with HTTPS. Our client side JS
-requests will not work correctly if you do not add our HTTPS certificate (servercert.crt) to 
-your browsers HTTPS/SSL certificates. If you cannot get the Browser to accept our self-signed 
-certificate please run the HTTP version of the application found in /HTTP. 
+This was not a requirement for the assignment so we allowed it to remain in the source. The TAs completion 
+status' are reset because of it but the old styling is kept. This creates a bad data state the server should
+be restarted.
 
-2. Issue with Weather API JSON Parsing
+2. Issue with styling in FireFox
 
-When parsing the JSON data from Weather API the source provided from the notes sometimes throws 
-and exception. We added a temporary fix by wrapping the parsing call in a try catch. If the 
-weather request from the browser is made and parsing the API fails the request will not return
-a response.
+The bottom line of each comment cell in the table is coloured with the status text for some strange reason. 
+This doesn't occur in Chrome.
 
-3. Refreshing the browser page causes the server to crash
+3. The date input only provides a format calender for Chrome
 
-Because the application is running on a recursive clock when users refresh the page after visiting
-or using the application they enter an different state than what the thermostat, server, and furnace 
-are running. This can sometimes cause the server to throw a connection exception with on of the 
-sockets. If we were using the express framework these exceptions could be easily handled with middleware that
-restarts the server. 
+By default date inputs in chrome use a nicely formatted calender for easy selection of dates. We added some basic
+client side validation for other browsers that accept just raw text inputs for thier date inputs. Dates should be
+in the format "YYYY-MM-DD" in order to be submitted to the server. If at any point an invalid date is sent to the
+server we do no more validation on it. It will display "Invalid Date" in the cell it was entered for.
 

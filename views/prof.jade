@@ -175,7 +175,7 @@ block content
           td(bgcolor='#CCCCCC')  
           td(bgcolor='#CCCCCC')
   br
-  form(action="/profupdate" method="post" onsubmit="return validateForm()")
+  form(action="/profupdate" method="post")
     div
       label.add-on(for="dateStart") Start Date
       input(type="date", name="dateStart")
@@ -188,7 +188,7 @@ block content
         option(value="as3") Assignment 3
         option(value="as4") Assignment 4
       
-    button(type="submit") Submit Dates
+    button(type="submit" onclick="return validateForm();") Submit Dates
   h2 Users logged in
   ul
     each val, user in loggedInUsers
